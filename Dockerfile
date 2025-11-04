@@ -22,21 +22,36 @@ RUN printf '%s\n' \
 'if ($request_method = OPTIONS) { return 204; }' \
 > /etc/nginx/custom.d/cors.conf
 
+# --- vhost nginx seguro e sem ciclo ---
 RUN printf '%s\n' \
 'server {' \
 '  listen 80;' \
-'  root $DOCUMENT_ROOT;' \
+'  server_tokens off;' \
+'  root /var/www/html;' \
 '  index index.php index.html;' \
-'  include /etc/nginx/custom.d/*.conf;' \
-'  location / { try_files $uri $uri/ /index.php?$args; }' \
+'' \
+'  # CORS básico (ajuste o domínio depois)' \
+'  add_header Access-Control-Allow-Origin * always;' \
+'  add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;' \
+'  add_header Access-Control-Allow-Headers "Content-Type, Authorization" always;' \
+'  if ($request_method = OPTIONS) { return 204; }' \
+'' \
+'  # Bloqueios de arquivos sensíveis e ocultos' \
+'  location ~ /\.(git|svn|hg|bzr) { deny all; }' \
+'  location ~* \.(log|ini|sh|bak|sql|swp|dist)$ { deny all; }' \
+'' \
+'  location / {' \
+'    try_files $uri $uri/ /index.php?$args;' \
+'  }' \
+'' \
 '  location ~ \.php$ {' \
 '    try_files $uri =404;' \
-'    include fastcgi_params; fastcgi_pass 127.0.0.1:9000;' \
+'    include fastcgi_params;' \
+'    fastcgi_pass 127.0.0.1:9000;' \
 '    fastcgi_index index.php;' \
-'    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;' \
+'    fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;' \
 '    fastcgi_read_timeout 120;' \
 '  }' \
-'  location ~* \.(log|ini|sh|bak|sql)$ { deny all; }' \
 '}' > /etc/nginx/sites-enabled/default.conf
 
 ENV WEBROOT=/var/www/html
