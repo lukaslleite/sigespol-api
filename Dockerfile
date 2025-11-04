@@ -22,7 +22,7 @@ RUN printf '%s\n' \
 'if ($request_method = OPTIONS) { return 204; }' \
 > /etc/nginx/custom.d/cors.conf
 
-# --- vhost nginx seguro e sem ciclo ---
+# --- vhost nginx estável ---
 RUN printf '%s\n' \
 'server {' \
 '  listen 80;' \
@@ -36,7 +36,7 @@ RUN printf '%s\n' \
 '  add_header Access-Control-Allow-Headers "Content-Type, Authorization" always;' \
 '  if ($request_method = OPTIONS) { return 204; }' \
 '' \
-'  # Bloqueios de arquivos sensíveis e ocultos' \
+'  # Bloqueios de arquivos sensíveis' \
 '  location ~ /\.(git|svn|hg|bzr) { deny all; }' \
 '  location ~* \.(log|ini|sh|bak|sql|swp|dist)$ { deny all; }' \
 '' \
@@ -46,10 +46,10 @@ RUN printf '%s\n' \
 '' \
 '  location ~ \.php$ {' \
 '    try_files $uri =404;' \
-'    include fastcgi_params;' \
+'    include /etc/nginx/fastcgi_params;' \
 '    fastcgi_pass 127.0.0.1:9000;' \
 '    fastcgi_index index.php;' \
-'    fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;' \
+'    fastcgi_param SCRIPT_FILENAME /var/www/html$fastcgi_script_name;' \
 '    fastcgi_read_timeout 120;' \
 '  }' \
 '}' > /etc/nginx/sites-enabled/default.conf
