@@ -41,4 +41,4 @@ RUN printf '%s\n' \
 
 ENV WEBROOT=/var/www/html
 COPY . /var/www/html
-RUN chown -R nginx:nginx /var/www/html
+RUN chmod -R 755 /var/www/html && chown -R nginx:nginx /var/www/html
