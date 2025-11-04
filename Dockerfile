@@ -22,28 +22,29 @@ RUN printf '%s\n' \
 'if ($request_method = OPTIONS) { return 204; }' \
 > /etc/nginx/custom.d/cors.conf
 
-# --- vhost nginx estável ---
+# --- vhost nginx estável + healthcheck estático ---
 RUN printf '%s\n' \
 'server {' \
 '  listen 80;' \
 '  server_tokens off;' \
 '  root /var/www/html;' \
-'  index index.php index.html;' \
+'  index index.html index.php;' \
 '' \
-'  # CORS básico (ajuste o domínio depois)' \
+'  # CORS (ajuste a origem depois)' \
 '  add_header Access-Control-Allow-Origin * always;' \
 '  add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;' \
 '  add_header Access-Control-Allow-Headers "Content-Type, Authorization" always;' \
 '  if ($request_method = OPTIONS) { return 204; }' \
 '' \
-'  # Bloqueios de arquivos sensíveis' \
+'  # Bloqueios (git, logs, env etc.)' \
 '  location ~ /\.(git|svn|hg|bzr) { deny all; }' \
-'  location ~* \.(log|ini|sh|bak|sql|swp|dist)$ { deny all; }' \
+'  location ~* \.(log|ini|sh|bak|sql|swp|dist|env)$ { deny all; }' \
 '' \
-'  location / {' \
-'    try_files $uri $uri/ /index.php?$args;' \
-'  }' \
+'  # Raiz SEM PHP (healthcheck usa index.html)' \
+'  location = / { try_files /index.html =404; }' \
+'  location / { try_files $uri $uri/ /index.html; }' \
 '' \
+'  # PHP só quando requisitar .php' \
 '  location ~ \.php$ {' \
 '    try_files $uri =404;' \
 '    include /etc/nginx/fastcgi_params;' \
