@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Ocorrências Policiais</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+	.d-flex.gap-2 {
+		gap: 10px;
+	}
+
+	.form-select-sm {
+		font-size: 0.875rem;
+		padding: 0.25rem 0.5rem;
+	}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .dashboard {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 28px;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 4px solid #3498db;
+        }
+
+        .card h3 {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .card .value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .chart-box h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+        }
+
+        .legenda-pizza {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .item-legenda {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px;
+        }
+
+        .cor-legenda {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .legenda-pizza {
+                grid-template-columns: 1fr;
+            }
+        }
+		
+		/* Responsividade aprimorada para o gráfico de barras e layout geral */
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 300px;
+  max-height: 500px;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+/* Tornar gráficos flexíveis em telas menores */
+@media (max-width: 992px) {
+  .charts-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chart-box {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .chart-container {
+    height: 350px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 10px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .cards-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .chart-container {
+    height: 300px !important;
+  }
+
+  .chart-box h2 {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .form-select-sm {
+    width: 100% !important;
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-container {
+    height: 250px !important;
+  }
+
+  .chart-box {
+    padding: 10px;
+  }
+
+  .legenda-pizza {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Gráficos fluidos e melhor escalonamento */
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Ajustes finos para o layout geral */
+.cards-container .card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.cards-container .card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.chart-box {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.chart-box:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Tornar tabelas responsivas dentro dos resultados */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Garantir espaçamento adequado entre elementos em telas pequenas */
+.row.g-3 > [class^='col-'] {
+  margin-bottom: 10px;
+}
+
+/* Melhor visualização de botões e selects em dispositivos móveis */
+button, select, input {
+  font-size: 1rem !important;
+  border-radius: 6px;
+}
+
+/* Ajuste visual para legenda do gráfico de pizza em mobile */
+.item-legenda {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cor-legenda {
+  flex-shrink: 0;
+}
+
+.item-legenda span {
+  font-size: 0.9rem;
+}
+
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>📊 Dashboard de Ocorrências Policiais</h1>
+        </div>
+
+        <!-- Cards com estatísticas -->
+        <div class="cards-container">
+            <div class="card">
+                <h3>Total de Ocorrências</h3>
+                <div class="value" id="totalOcorrencias">0</div>
+            </div>
+            <div class="card">
+                <h3>Ocorrências 2024</h3>
+                <div class="value" id="ocorrencias2024">0</div>
+            </div>
+            <div class="card">
+                <h3>Ocorrências 2025</h3>
+                <div class="value" id="ocorrencias2025">0</div>
+            </div>
+            <div class="card">
+                <h3>Variação 2024/2025</h3>
+                <div class="value" id="variacao">0%</div>
+            </div>
+			
+        </div>
+
+		<!-- Área de Consulta Rápida Expansível -->
+		<div class="card shadow-sm mt-4" style="margin-bottom: 20px !important;">
+			<div class="card-header bg-info text-white d-flex justify-content-between align-items-center" style="cursor: pointer;" id="headerConsultaRapida">
+				<h5 class="mb-0">🔍 Consulta Rápida</h5>
+				<span class="toggle-arrow">▼</span>
+			</div>
+			<div class="card-body" id="bodyConsultaRapida" style="display: none;">
+				<div class="row g-3">
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Tipo de Ocorrência</label>
+						<select id="consultaTipo" class="form-select">
+							<option value="">Selecione...</option>
+							<option value="ACIDENTE DE TRÂNSITO">ACIDENTE DE TRÂNSITO</option>
+							<option value="ROUBO">ROUBO</option>
+							<option value="FURTO">FURTO</option>
+							<option value="MARIA DA PENHA">MARIA DA PENHA</option>
+							<option value="HOMICÍDIO">HOMICÍDIO</option>
+							<option value="TRÁFICO">TRÁFICO DE DROGAS</option>
+							<option value="AMEAÇA">AMEAÇA</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label class="form-label fw-bold">Ano</label>
+						<select id="consultaAno" class="form-select">
+							<option value="2025">2025</option>
+							<option value="2024">2024</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label class="form-label fw-bold">Mês (opcional)</label>
+						<select id="consultaMes" class="form-select">
+							<option value="">Todos os meses</option>
+							<option value="01">Janeiro</option>
+							<option value="02">Fevereiro</option>
+							<option value="03">Março</option>
+							<option value="04">Abril</option>
+							<option value="05">Maio</option>
+							<option value="06">Junho</option>
+							<option value="07">Julho</option>
+							<option value="08">Agosto</option>
+							<option value="09">Setembro</option>
+							<option value="10">Outubro</option>
+							<option value="11">Novembro</option>
+							<option value="12">Dezembro</option>
+						</select>
+					</div>
+					<div class="col-md-2 d-flex align-items-end">
+						<button id="btnConsultaRapida" class="btn btn-primary w-100">
+							🔍 Consultar
+						</button>
+					</div>
+				</div>
+
+				<!-- Resultado da Consulta -->
+				<div id="resultadoConsulta" class="mt-4" style="display: none;">
+					<div class="card">
+						<div class="card-body">
+							<h6 id="consultaTitulo" class="card-title"></h6>
+							<div id="consultaEstatisticas" class="mb-3"></div>
+							<div id="consultaDetalhes"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+        <!-- Gráficos -->
+        <div class="charts-container">
+            
+			<!-- Gráfico de Barras - Comparação Anual -->
+            <div class="chart-box">
+				<div class="d-flex justify-content-between align-items-center mb-3">
+					<h2>Comparativo Geral de Ocorrências</h2>
+					<div class="d-flex gap-2">
+						<!-- Filtro de Tipo -->
+						<select id="filtroTipo" onchange="atualizarGraficoComFiltros()" class="form-select form-select-sm" style="width: 200px;">
+							<option value="">Todos os tipos</option>
+							<!-- Os tipos serão carregados via JavaScript -->
+						</select>
+						<!-- Filtro de Período -->
+						<select id="filtroPeriodo" onchange="atualizarGraficoComFiltros()" class="form-select form-select-sm" style="width: 150px;">
+							<option value="mensal">Mensal</option>
+							<option value="semestral">Semestral</option>
+							<option value="anual">Anual</option>
+						</select>
+					</div>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="barChart"></canvas>
+    </div>
+    
+    <!-- SEU CONTAINER ORIGINAL - MANTIDO INTACTO -->
+    <div class="container py-4">
+        <h3 class="text-center mb-4">📊 Comparativo individual de Ocorrências</h3>
+
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <!-- Tipo -->
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Tipo de Ocorrência</label>
+                <select id="tipo" class="form-select">
+                  <option value="">Carregando tipos...</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Modo</label>
+                <select id="modo" class="form-select">
+                  <option value="mensal" selected>Mensal</option>
+                  <option value="anual">Anual</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Blocos de comparação -->
+            <div class="row g-3 mb-3">
+              <!-- Período 1 -->
+              <div class="col-md-6 border-end">
+                <h6 class="fw-bold text-primary mb-2">Período 1</h6>
+                <div class="row g-2">
+                  <div class="col-6">
+                    <label class="form-label">Mês</label>
+                    <select id="mes1" class="form-select"></select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label">Ano</label>
+                    <select id="ano1" class="form-select"></select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Período 2 -->
+              <div class="col-md-6">
+                <h6 class="fw-bold text-danger mb-2">Período 2</h6>
+                <div class="row g-2">
+                  <div class="col-6">
+                    <label class="form-label">Mês</label>
+                    <select id="mes2" class="form-select"></select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label">Ano</label>
+                    <select id="ano2" class="form-select"></select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-end mt-3">
+              <button id="btnGerar" class="btn btn-primary">🔍 Gerar Comparativo</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resultado -->
+        <div id="resultado" class="card shadow-sm" style="display: none;">
+          <div class="card-body">
+            <div id="estatisticas" class="mb-3"></div>
+            <canvas id="grafico" height="120"></canvas>
+          </div>
+        </div>
+    </div>
+
+
+  <script>
+  // ✅ CORREÇÃO: Configuração dinâmica da API
+	const API_BASE = window.location.hostname === 'dashboard.sigescol.com.br' 
+		? "https://dashboard.sigescol.com.br" 
+		: "https://dashboard.sigescol.com.br"; // Mesmo para desenvolvimento
+
+    const ctx = document.getElementById('grafico');
+    let grafico;
+
+    const meses = [
+      'Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+      'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'
+    ];
+    const anos = [2023, 2024, 2025];
+
+    // Elementos
+	const consultaTipo = document.getElementById('consultaTipo');
+    const selectTipo = document.getElementById('tipo');
+    const selectMes1 = document.getElementById('mes1');
+    const selectMes2 = document.getElementById('mes2');
+    const selectAno1 = document.getElementById('ano1');
+    const selectAno2 = document.getElementById('ano2');
+    const modoSelect = document.getElementById('modo');
+    const btnGerar = document.getElementById('btnGerar');
+    const resultadoDiv = document.getElementById('resultado');
+    const estatisticasDiv = document.getElementById('estatisticas');
+
+    // Popular selects
+    function popularSelects() {
+      // Meses
+      meses.forEach((m, i) => {
+        const valor = String(i+1).padStart(2,'0');
+        selectMes1.innerHTML += `<option value="${valor}">${m}</option>`;
+        selectMes2.innerHTML += `<option value="${valor}">${m}</option>`;
+      });
+      
+      // Anos
+      anos.forEach(a => {
+        selectAno1.innerHTML += `<option value="${a}">${a}</option>`;
+        selectAno2.innerHTML += `<option value="${a}">${a}</option>`;
+      });
+      
+      // Valores padrão
+      selectMes1.value = '01';
+      selectMes2.value = '12';
+      selectAno1.value = '2024';
+      selectAno2.value = '2025';
+    }
+
+    // Carregar tipos da API
+    async function carregarTipos() {
+      try {
+        const response = await fetch(`${API_BASE}/api/cache/tipos-comparativo.php`);
+        const data = await response.json();
+        
+        if (data.success) {
+		  consultaTipo.innerHTML = '<option value="">Selecione um tipo...</option>';
+          selectTipo.innerHTML = '<option value="">Selecione um tipo...</option>';
+          data.tipos.forEach(tipo => {
+            selectTipo.innerHTML += `<option value="${tipo}">${tipo}</option>`;
+			consultaTipo.innerHTML += `<option value="${tipo}">${tipo}</option>`;
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao carregar tipos:', error);
+        selectTipo.innerHTML = '<option value="">Erro ao carregar tipos</option>';
+      }
+    }
+
+    // Ocultar/mostrar meses conforme modo
+    modoSelect.addEventListener('change', () => {
+      const mostrarMeses = modoSelect.value === 'mensal';
+      document.querySelectorAll('.row.g-2 .col-6:first-child').forEach(col => {
+        col.style.display = mostrarMeses ? 'block' : 'none';
+      });
+    });
+
+    // Gerar comparativo
+    btnGerar.addEventListener('click', async () => {
+      const tipo = selectTipo.value;
+      const modo = modoSelect.value;
+      const mes1 = selectMes1.value;
+      const mes2 = selectMes2.value;
+      const ano1 = selectAno1.value;
+      const ano2 = selectAno2.value;
+
+      if (!tipo) {
+        alert('Selecione o tipo de ocorrência!');
+        return;
+      }
+
+      if (modo === 'mensal' && mes1 === mes2 && ano1 === ano2) {
+        alert('Os dois períodos não podem ser idênticos!');
+        return;
+      }
+
+      if (modo === 'anual' && ano1 === ano2) {
+        alert('Os dois anos não podem ser iguais!');
+        return;
+      }
+
+      btnGerar.disabled = true;
+      btnGerar.innerHTML = '⏳ Gerando...';
+
+      try {
+        const params = new URLSearchParams({
+          tipo, modo, ano1, ano2, ...(modo === 'mensal' && { mes1, mes2 })
+        });
+
+        const response = await fetch(`${API_BASE}/api/comparativo.php?${params}`);
+        const data = await response.json();
+
+        if (data.success) {
+          exibirResultado(data);
+        } else {
+          alert('Erro: ' + data.error);
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao gerar comparativo');
+      } finally {
+        btnGerar.disabled = false;
+        btnGerar.innerHTML = '🔍 Gerar Comparativo';
+      }
+    });
+
+    // Exibir resultados
+	function exibirResultado(comparativo) {
+		// garante que a área esteja visível
+		resultadoDiv.style.display = 'block';
+
+		// estatísticas (vem do PHP)
+		const stats = comparativo.estatisticas || {
+			totalPeriodo1: 0, totalPeriodo2: 0, diferenca: 0, variacaoPercentual: 0
+		};
+
+		// pega os selects atuais (para montar os rótulos conforme o que o usuário selecionou)
+		const selectMes1 = document.getElementById('mes1');
+		const selectMes2 = document.getElementById('mes2');
+		const selectAno1 = document.getElementById('ano1');
+		const selectAno2 = document.getElementById('ano2');
+		const modo = document.getElementById('modo').value; // 'mensal' ou 'anual'
+
+		// textos dos meses selecionados (para labels mensais)
+		const textoMes1 = selectMes1.options[selectMes1.selectedIndex]?.text || '';
+		const textoMes2 = selectMes2.options[selectMes2.selectedIndex]?.text || '';
+
+		// Definir labels baseado no modo
+		let labelPeriodo1, labelPeriodo2;
+		if (modo === 'mensal') {
+			labelPeriodo1 = `${textoMes1}/${selectAno1.value}`;
+			labelPeriodo2 = `${textoMes2}/${selectAno2.value}`;
+		} else { // anual
+			labelPeriodo1 = `Ano ${selectAno1.value}`;
+			labelPeriodo2 = `Ano ${selectAno2.value}`;
+		}
+
+		// Prepara HTML das estatísticas (usa stats já calculadas pelo PHP)
+		const variacaoColor = (stats.variacaoPercentual >= 0) ? 'danger' : 'success';
+		const variacaoIcon = (stats.variacaoPercentual >= 0) ? '📈' : '📉';
+
+		estatisticasDiv.innerHTML = `
+			<div class="row text-center">
+				<div class="col-md-3">
+					<div class="card bg-primary text-white">
+						<div class="card-body py-2">
+							<h6>${labelPeriodo1}</h6>
+							<h4>${(stats.totalPeriodo1 || 0)}</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card bg-danger text-white">
+						<div class="card-body py-2">
+							<h6>${labelPeriodo2}</h6>
+							<h4>${(stats.totalPeriodo2 || 0)}</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card bg-${variacaoColor} text-white">
+						<div class="card-body py-2">
+							<h6>Variação</h6>
+							<h4>${variacaoIcon} ${(stats.variacaoPercentual >= 0 ? '+' : '')}${(stats.variacaoPercentual || 0).toFixed(1)}%</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card bg-info text-white">
+						<div class="card-body py-2">
+							<h6>Diferença</h6>
+							<h4>${(stats.diferenca >= 0 ? '+' : '')}${(stats.diferenca || 0)}</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		`;
+
+		// Monta o objeto que renderizarGrafico() espera:
+		// renderizarGrafico espera comparativo.dados ser um array [{label, count}, {label, count}]
+		const tipoExibicao = comparativo.tipoSelecionado || ''; // ou outro campo se quiser
+		const comparativoParaGrafico = {
+			tipo: tipoExibicao,
+			modo: modo,
+			dados: [
+				{ label: labelPeriodo1, count: (stats.totalPeriodo1 || 0) },
+				{ label: labelPeriodo2, count: (stats.totalPeriodo2 || 0) }
+			]
+		};
+
+		// Chama o renderizador com o formato compatível
+		try {
+			console.log('Renderizando gráfico com dados para compare:', comparativoParaGrafico);
+			renderizarGrafico(comparativoParaGrafico);
+		} catch (err) {
+			console.error('Erro ao renderizar gráfico comparativo:', err);
+		}
+	}
+
+
+    function renderizarGrafico(comparativo) {
+      if (grafico) grafico.destroy();
+
+      const dados = comparativo.dados;
+      const stats = comparativo.estatisticas;
+
+      grafico = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: dados.map(d => d.label),
+          datasets: [{
+            label: comparativo.tipo,
+            data: dados.map(d => d.count),
+            backgroundColor: ['#0d6efd', '#dc3545'],
+            borderColor: ['#0b5ed7', '#c82333'],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: `Comparativo ${comparativo.modo === 'mensal' ? 'Mensal' : 'Anual'} - ${comparativo.tipo}`,
+              font: { size: 16 }
+            },
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Quantidade de Ocorrências'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Períodos Comparados'
+              }
+            }
+          }
+        }
+      });
+    }
+
+  </script>
+            </div>
+
+            <!-- Gráfico de Pizza - Top 10 Ocorrências -->
+            <div class="chart-box">
+                <h2>Top 10 Ocorrências Mais Frequentes</h2>
+                <div class="chart-container">
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <!-- Legenda do gráfico de pizza -->
+                <div class="legenda-pizza" id="legendaPizza">
+                    <!-- A legenda será gerada via JavaScript -->
+                </div>
+            </div>
+        </div>
+		
+		
+    </div>
+
+    <script>
+        // Dados mockados atualizados conforme suas especificações
+        const dadosMock = {
+            totalOcorrencias: '',
+            ocorrencias2024: '',
+            ocorrencias2025: '',
+            variacao: '',
+            
+            // Top 10 ocorrências mais frequentes
+            top10Ocorrencias: {
+                labels: [
+                    'Roubo de Celular',
+                    'Furto em Veículo',
+                    'Tráfico de Drogas',
+                    'Vandalismo',
+                    'Ameaça',
+                    'Estelionato',
+                    'Lesão Corporal',
+                    'Roubo de Veículo',
+                    'Porte Ilegal',
+                    'Violência Doméstica'
+                ],
+                dados: ['', '', '', '', '', '', '', '', '', ''],
+                cores: [
+                    '#e74c3c', '#3498db', '#f39c12', '#2ecc71', '#9b59b6',
+                    '#1abc9c', '#d35400', '#34495e', '#7f8c8d', '#c0392b'
+                ]
+            },
+            
+            // Comparativo mensal 2024 vs 2025
+            comparativoMensal: {
+                meses: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                dados2024: ['', '', '', '', '', '', '', '', '', '', '', ''],
+                dados2025: ['', '', '', '', '', '', '', '', '', '', '', '']
+            }
+        };
+
+        // Atualizar cards
+        document.getElementById('totalOcorrencias').textContent = dadosMock.totalOcorrencias;
+        document.getElementById('ocorrencias2024').textContent = dadosMock.ocorrencias2024;
+        document.getElementById('ocorrencias2025').textContent = dadosMock.ocorrencias2025;
+        
+        const variacaoElement = document.getElementById('variacao');
+        variacaoElement.textContent = (dadosMock.variacao > 0 ? '+' : '') + dadosMock.variacao + '%';
+        variacaoElement.style.color = dadosMock.variacao >= 0 ? '#27ae60' : '#e74c3c';
+
+
+
+		// Em vez disso, use esta função para inicializar com dados mockados:
+		function inicializarGraficosMockados() {
+			// Gráfico de Barras - Comparação 2024 vs 2025
+			const barCtx = document.getElementById('barChart').getContext('2d');
+			barChart = new Chart(barCtx, {
+				type: 'bar',
+				data: {
+					labels: dadosMock.comparativoMensal.meses,
+					datasets: [
+						{
+							label: '2024',
+							data: dadosMock.comparativoMensal.dados2024,
+							backgroundColor: '#3498db',
+							borderColor: '#2980b9',
+							borderWidth: 1
+						},
+						{
+							label: '2025',
+							data: dadosMock.comparativoMensal.dados2025,
+							backgroundColor: '#2ecc71',
+							borderColor: '#27ae60',
+							borderWidth: 1
+						}
+					]
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					scales: {
+						y: {
+							beginAtZero: true,
+							title: {
+								display: true,
+								text: 'Quantidade de Ocorrências'
+							}
+						},
+						x: {
+							title: {
+								display: true,
+								text: 'Meses do Ano'
+							}
+						}
+					},
+					plugins: {
+						legend: {
+							position: 'top',
+						}
+					}
+				}
+			});
+
+			// Gráfico de Pizza - Top 10 Ocorrências
+			const pieCtx = document.getElementById('pieChart').getContext('2d');
+			pieChart = new Chart(pieCtx, {
+				type: 'pie',
+				data: {
+					labels: dadosMock.top10Ocorrencias.labels,
+					datasets: [{
+						data: dadosMock.top10Ocorrencias.dados,
+						backgroundColor: dadosMock.top10Ocorrencias.cores,
+						borderColor: '#fff',
+						borderWidth: 2
+					}]
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					plugins: {
+						legend: {
+							display: false
+						},
+						tooltip: {
+							callbacks: {
+								label: function(context) {
+									const label = context.label || '';
+									const value = context.raw || 0;
+									const total = context.dataset.data.reduce((a, b) => a + b, 0);
+									const percentage = Math.round((value / total) * 100);
+									return `${label}: ${value} (${percentage}%)`;
+								}
+							}
+						}
+					}
+				}
+			});
+
+			// Criar legenda inicial
+			criarLegendaPizza(dadosMock.top10Ocorrencias);
+		}
+
+
+
+
+        // Função para criar legenda personalizada
+		function criarLegendaPizza(top10Ocorrencias) {
+			const legendaContainer = document.getElementById('legendaPizza');
+			if (!legendaContainer) {
+				console.error('❌ Container da legenda não encontrado');
+				return;
+			}
+			
+			legendaContainer.innerHTML = '';
+			
+			// Verificar se os dados são válidos
+			if (!top10Ocorrencias || !top10Ocorrencias.labels || top10Ocorrencias.labels.length === 0) {
+				console.error('❌ Dados inválidos para legenda:', top10Ocorrencias);
+				legendaContainer.innerHTML = '<div class="item-legenda">Dados não disponíveis</div>';
+				return;
+			}
+			
+			// Criar itens da legenda
+			top10Ocorrencias.labels.forEach((label, index) => {
+				const item = document.createElement('div');
+				item.className = 'item-legenda';
+				
+				const cor = document.createElement('div');
+				cor.className = 'cor-legenda';
+				cor.style.backgroundColor = top10Ocorrencias.cores[index];
+				
+				const texto = document.createElement('span');
+				texto.innerHTML = `<strong>${label}</strong>: ${top10Ocorrencias.dados[index]} ocorrências`;
+				
+				item.appendChild(cor);
+				item.appendChild(texto);
+				legendaContainer.appendChild(item);
+			});
+		}
+
+        // Chamar a função para criar a legenda
+        criarLegendaPizza(dadosMock.top10Ocorrencias);
+		
+		
+		
+		
+		
+		
+		/* -----------------------------
+						AQUI COMEÇA OS SCRIPTS DO SERVER 
+														---------------- */
+														
+														// Carregar dados reais da API
+
+
+function processarComparativoMensal(distribuicaoMensal, anoAnterior, anoAtual) {
+    const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+    
+    console.log(`🔍 Comparando: ${anoAnterior} vs ${anoAtual}`);
+
+    // Inicializar arrays com zeros
+    const dadosAnoAnterior = Array(12).fill(0);
+    const dadosAnoAtual = Array(12).fill(0);
+
+    // Processar ano anterior
+    if (anoAnterior && distribuicaoMensal[anoAnterior]) {
+        Object.entries(distribuicaoMensal[anoAnterior]).forEach(([mes, quantidade]) => {
+            const mesNum = parseInt(mes);
+            if (mesNum >= 1 && mesNum <= 12) {
+                dadosAnoAnterior[mesNum - 1] = quantidade;
+            }
+        });
+    }
+
+    // Processar ano atual
+    if (anoAtual && distribuicaoMensal[anoAtual]) {
+        Object.entries(distribuicaoMensal[anoAtual]).forEach(([mes, quantidade]) => {
+            const mesNum = parseInt(mes);
+            if (mesNum >= 1 && mesNum <= 12) {
+                dadosAnoAtual[mesNum - 1] = quantidade;
+            }
+        });
+    }
+
+    console.log(`✅ Dados processados ${anoAnterior}:`, dadosAnoAnterior);
+    console.log(`✅ Dados processados ${anoAtual}:`, dadosAnoAtual);
+
+    return {
+        meses: meses,
+        anoAnterior: anoAnterior,
+        anoAtual: anoAtual,
+        dadosAnoAnterior: dadosAnoAnterior,
+        dadosAnoAtual: dadosAnoAtual
+    };
+}
+
+
+
+function processarDadosReais(dados, anoAnterior, anoAtual) {
+    console.log('🔨 Processando dados reais...');
+    
+    const totalAnoAnterior = dados.totais[anoAnterior] || 0;
+    const totalAnoAtual = dados.totais[anoAtual] || 0;
+    const totalGeral = dados.totais.total || 0;
+    
+    // Calcular variação
+    const variacao = totalAnoAnterior > 0 ? 
+        Math.round(((totalAnoAtual - totalAnoAnterior) / totalAnoAnterior) * 100) : 0;
+
+    // Top 10 ocorrências reais
+    const top10Real = processarTop10Real(dados.top10Geral);
+    
+    // Comparativo mensal real
+    const comparativoMensal = processarComparativoMensal(dados.distribuicaoMensal, anoAnterior, anoAtual);
+
+    return {
+        totalOcorrencias: totalGeral,
+        anoAnterior: anoAnterior,
+        anoAtual: anoAtual,
+        ocorrenciasAnoAnterior: totalAnoAnterior,
+        ocorrenciasAnoAtual: totalAnoAtual,
+        variacao: variacao,
+        top10Ocorrencias: top10Real,
+        comparativoMensal: comparativoMensal,
+        dadosBrutos: dados
+    };
+}
+
+function processarTop10Real(top10Geral) {
+    
+    if (!top10Geral || top10Geral.length === 0) {
+        console.warn('⚠️ Nenhum dado disponível para Top 10');
+        return {
+            labels: ['Dados não disponíveis'],
+            dados: [1],
+            cores: ['#95a5a6']
+        };
+    }
+
+    const cores = [
+        '#e74c3c', '#3498db', '#f39c12', '#2ecc71', '#9b59b6',
+        '#1abc9c', '#d35400', '#34495e', '#7f8c8d', '#c0392b'
+    ];
+
+    const resultado = {
+        labels: top10Geral.slice(0, 10).map(item => item.tipo),
+        dados: top10Geral.slice(0, 10).map(item => item.quantidade),
+        cores: cores.slice(0, Math.min(10, top10Geral.length))
+    };
+
+    return resultado;
+}
+
+
+
+// Atualizar a função usarDadosMockados
+function usarDadosMockados() {
+    
+    // Atualizar cards com dados mockados
+    document.getElementById('totalOcorrencias').textContent = dadosMock.totalOcorrencias;
+    document.getElementById('ocorrencias2024').textContent = dadosMock.ocorrencias2024;
+    document.getElementById('ocorrencias2025').textContent = dadosMock.ocorrencias2025;
+    
+    const variacaoElement = document.getElementById('variacao');
+    variacaoElement.textContent = (dadosMock.variacao > 0 ? '+' : '') + dadosMock.variacao + '%';
+    variacaoElement.style.color = dadosMock.variacao >= 0 ? '#27ae60' : '#e74c3c';
+    
+}
+
+
+
+// Função para atualizar o dashboard (já existe, mas vamos garantir)
+function atualizarDashboard(dadosProcessados) {
+    console.log('🎨 Atualizando dashboard com dados reais...');
+    
+    // Atualizar cards
+    document.getElementById('totalOcorrencias').textContent = dadosProcessados.totalOcorrencias.toLocaleString();
+    document.getElementById('ocorrencias2024').textContent = dadosProcessados.ocorrenciasAnoAnterior.toLocaleString();
+    document.getElementById('ocorrencias2025').textContent = dadosProcessados.ocorrenciasAnoAtual.toLocaleString();
+    
+    // CORREÇÃO: Atualizar labels dos cards corretamente
+    const cards = document.querySelectorAll('.card');
+    cards[1].querySelector('h3').textContent = `Ocorrências ${dadosProcessados.anoAnterior}`;
+    cards[2].querySelector('h3').textContent = `Ocorrências ${dadosProcessados.anoAtual}`;
+    cards[3].querySelector('h3').textContent = `Variação ${dadosProcessados.anoAnterior}/${dadosProcessados.anoAtual}`;
+    
+    const variacaoElement = document.getElementById('variacao');
+    variacaoElement.textContent = (dadosProcessados.variacao > 0 ? '+' : '') + dadosProcessados.variacao + '%';
+    variacaoElement.style.color = dadosProcessados.variacao >= 0 ? '#27ae60' : '#e74c3c';
+    
+    // CORREÇÃO: Atualizar título do gráfico de barras especificamente
+    document.querySelector('.chart-box:first-child h2').textContent = `Comparativo Mensal ${dadosProcessados.anoAnterior} vs ${dadosProcessados.anoAtual}`;
+    
+    // Atualizar gráficos
+    atualizarGraficoBarras(dadosProcessados.comparativoMensal);
+    atualizarGraficoPizza(dadosProcessados.top10Ocorrencias);
+	console.log('🎉 Gráficos atualizados com sucesso!');
+}
+
+
+// Variáveis globais para armazenar as instâncias dos gráficos
+let barChart = null;
+let pieChart = null;
+
+
+
+// Função para atualizar o gráfico de barras
+function atualizarGraficoBarras(comparativoMensal) {
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    
+    // Destruir gráfico existente se houver
+    if (barChart instanceof Chart) {
+        barChart.destroy();
+        barChart = null;
+    }
+    
+    barChart = new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: comparativoMensal.meses,
+            datasets: [
+                {
+                    label: comparativoMensal.anoAnterior,
+                    data: comparativoMensal.dadosAnoAnterior,
+                    backgroundColor: '#3498db',
+                    borderColor: '#2980b9',
+                    borderWidth: 1
+                },
+                {
+                    label: comparativoMensal.anoAtual,
+                    data: comparativoMensal.dadosAnoAtual,
+                    backgroundColor: '#2ecc71',
+                    borderColor: '#27ae60',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Quantidade de Ocorrências'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Meses do Ano'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            }
+        }
+    });
+}
+
+
+
+
+// Carregar tipos para o filtro do gráfico de barras
+async function carregarTiposParaFiltro() {
+    try {
+        const response = await fetch(`${API_BASE}/api/cache/tipos-comparativo.php`);
+        const data = await response.json();
+        
+        if (data.success) {
+            const filtroTipo = document.getElementById('filtroTipo');
+			
+            filtroTipo.innerHTML = '<option value="">Todos os tipos</option>';
+			
+            data.tipos.forEach(tipo => {
+                filtroTipo.innerHTML += `<option value="${tipo}">${tipo}</option>`;
+            });
+        }
+    } catch (error) {
+        console.error('Erro ao carregar tipos para filtro:', error);
+    }
+}
+
+
+
+// ✅ Função corrigida: processa o retorno real do PHP e renderiza o gráfico de barras corretamente
+async function atualizarGraficoComFiltros() {
+    const tipo = document.getElementById('filtroTipo').value;
+    const periodo = document.getElementById('filtroPeriodo').value;
+
+    console.log(`🔍 Aplicando filtros - Tipo: ${tipo || 'Todos'}, Período: ${periodo}`);
+
+    try {
+        const params = new URLSearchParams({
+            tipo: tipo || '',
+            periodo: periodo || 'mensal'
+        });
+
+        const response = await fetch(`/api/grafico-barras-filtrado.php?${params}`);
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Verifica se o backend retornou corretamente
+        if (data.success && data.dados && data.dados.distribuicaoMensal) {
+            console.log('✅ Dados filtrados carregados:', data.dados);
+
+            const { distribuicaoMensal } = data.dados;
+            const anoAnterior = parseInt(data.anoAnterior);
+            const anoAtual = parseInt(data.anoAtual);
+
+            // Labels dos meses
+            const mesesLabels = [
+                'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+                'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+            ];
+
+            // Inicializa arrays de contagem por mês
+            const dadosAnoAnterior = Array(12).fill(0);
+            const dadosAnoAtual = Array(12).fill(0);
+
+            // Preenche dados do ano anterior
+            if (distribuicaoMensal[anoAnterior]) {
+                Object.entries(distribuicaoMensal[anoAnterior]).forEach(([mes, qtd]) => {
+                    const idx = parseInt(mes) - 1;
+                    if (idx >= 0 && idx < 12) dadosAnoAnterior[idx] = qtd;
+                });
+            }
+
+            // Preenche dados do ano atual
+            if (distribuicaoMensal[anoAtual]) {
+                Object.entries(distribuicaoMensal[anoAtual]).forEach(([mes, qtd]) => {
+                    const idx = parseInt(mes) - 1;
+                    if (idx >= 0 && idx < 12) dadosAnoAtual[idx] = qtd;
+                });
+            }
+
+            // ✅ Prepara o objeto no formato esperado pelo renderizador
+            const dadosFormatados = {
+                labels: mesesLabels,
+                dadosAnoAnterior,
+                dadosAnoAtual,
+                anoAnterior,
+                anoAtual
+            };
+
+            console.log('📊 Dados formatados para renderização:', dadosFormatados);
+
+            // Renderiza o gráfico com os dados corretos
+            renderizarGraficoBarrasFiltrado(dadosFormatados, tipo, periodo);
+        } else {
+            throw new Error(data.error || 'Dados não retornados');
+        }
+    } catch (error) {
+        console.error('❌ Erro ao carregar dados filtrados:', error);
+        alert('Erro ao carregar dados com os filtros selecionados');
+    }
+}
+
+
+// ✅ Função melhorada: renderiza gráfico de barras com suporte a períodos e título dinâmico
+function renderizarGraficoBarrasFiltrado(dados, tipo, periodo) {
+    console.log('📊 Renderizando gráfico com dados:', dados, ' | Tipo:', tipo, ' | Período:', periodo);
+
+    const ctx = document.getElementById('barChart').getContext('2d');
+
+    // Remove gráfico anterior se existir
+    if (window.graficoBarrasInstance) {
+        window.graficoBarrasInstance.destroy();
+    }
+
+    // 🏷️ Labels conforme o período selecionado
+    let labels = [];
+    if (periodo === 'anual') {
+        labels = [dados.anoAnterior.toString(), dados.anoAtual.toString()];
+    } else if (periodo === 'semestral') {
+        labels = ['1º Semestre', '2º Semestre'];
+    } else {
+        // padrão: mensal
+        labels = [
+            'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+            'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+        ];
+    }
+
+    // 📈 Dados base (mensais)
+    let dadosAnoAnterior = dados.dadosAnoAnterior;
+    let dadosAnoAtual = dados.dadosAnoAtual;
+
+    // 🧮 Ajusta os dados conforme o período selecionado
+    if (periodo === 'anual') {
+        const somaAnterior = dadosAnoAnterior.reduce((a, b) => a + b, 0);
+        const somaAtual = dadosAnoAtual.reduce((a, b) => a + b, 0);
+        dadosAnoAnterior = [somaAnterior];
+        dadosAnoAtual = [somaAtual];
+    } else if (periodo === 'semestral') {
+        const semestre1Anterior = dadosAnoAnterior.slice(0, 6).reduce((a, b) => a + b, 0);
+        const semestre2Anterior = dadosAnoAnterior.slice(6, 12).reduce((a, b) => a + b, 0);
+        const semestre1Atual = dadosAnoAtual.slice(0, 6).reduce((a, b) => a + b, 0);
+        const semestre2Atual = dadosAnoAtual.slice(6, 12).reduce((a, b) => a + b, 0);
+        dadosAnoAnterior = [semestre1Anterior, semestre2Anterior];
+        dadosAnoAtual = [semestre1Atual, semestre2Atual];
+    }
+
+    // 🏷️ Título dinâmico
+    const titulo = `Comparativo ${dados.anoAnterior} × ${dados.anoAtual} — ${tipo || 'Todos os Tipos'}`;
+
+    // 🎨 Criação do gráfico
+    window.graficoBarrasInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: `${dados.anoAnterior}`,
+                    data: dadosAnoAnterior,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: `${dados.anoAtual}`,
+                    data: dadosAnoAtual,
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: titulo,
+                    font: { size: 16, weight: 'bold' }
+                },
+                legend: {
+                    display: true,
+                    position: 'bottom'
+                }
+            },
+            scales: {
+                x: { title: { display: true, text: periodo === 'mensal' ? 'Meses' : periodo === 'semestral' ? 'Semestres' : 'Anos' } },
+                y: { title: { display: true, text: 'Quantidade de Ocorrências' }, beginAtZero: true }
+            }
+        }
+    });
+}
+
+
+function getLabelEixoX(periodo) {
+    switch (periodo) {
+        case 'mensal': return 'Meses do Ano';
+        case 'semestral': return 'Semestres';
+        case 'anual': return 'Anos';
+        default: return 'Período';
+    }
+}
+
+
+
+
+// Função para atualizar o gráfico de pizza
+function atualizarGraficoPizza(top10Ocorrencias) {
+    const pieCtx = document.getElementById('pieChart').getContext('2d');
+    
+    // Destruir gráfico existente se houver
+    if (pieChart instanceof Chart) {
+        pieChart.destroy();
+        pieChart = null;
+    }
+    
+    pieChart = new Chart(pieCtx, {
+        type: 'pie',
+        data: {
+            labels: top10Ocorrencias.labels,
+            datasets: [{
+                data: top10Ocorrencias.dados,
+                backgroundColor: top10Ocorrencias.cores,
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.raw || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = Math.round((value / total) * 100);
+                            return `${label}: ${value} (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+    
+    // Atualizar legenda
+    criarLegendaPizza(top10Ocorrencias);
+}
+
+
+
+// Função de fallback para dados mockados
+function usarDadosMockados() {
+    
+    // Atualizar cards com dados mockados
+    document.getElementById('totalOcorrencias').textContent = dadosMock.totalOcorrencias;
+    document.getElementById('ocorrencias2024').textContent = dadosMock.ocorrencias2024;
+    document.getElementById('ocorrencias2025').textContent = dadosMock.ocorrencias2025;
+    
+    const variacaoElement = document.getElementById('variacao');
+    variacaoElement.textContent = (dadosMock.variacao > 0 ? '+' : '') + dadosMock.variacao + '%';
+    variacaoElement.style.color = dadosMock.variacao >= 0 ? '#27ae60' : '#e74c3c';
+    
+    // Os gráficos já estão inicializados com dados mockados, então não precisamos atualizar
+}
+
+// Carregar dados reais da API - VERSÃO CORRIGIDA
+async function carregarDadosReais() {
+    try {
+        console.log('🔄 Carregando dados reais da API...');
+        
+        const response = await fetch(`${API_BASE}/api/dashboard.php`);
+        
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+        
+        const dados = await response.json();
+        console.log('✅ Dados reais carregados:', dados);
+        
+        if (dados.success) {
+            // ✅ CORREÇÃO: Calcular anos dinamicamente
+            const anoAtual = new Date().getFullYear().toString();
+            const anoAnterior = (parseInt(anoAtual) - 1).toString();
+            
+            // Processar dados para o formato esperado pelo dashboard
+            const dadosProcessados = processarDadosReais(dados, anoAnterior, anoAtual);
+            
+            // Atualizar cards
+            atualizarCards(dadosProcessados);
+            
+            // Usar a mesma função de renderização para manter consistência
+            const dadosParaGrafico = {
+                labels: dadosProcessados.comparativoMensal.meses,
+                dadosAnoAnterior: dadosProcessados.comparativoMensal.dadosAnoAnterior,
+                dadosAnoAtual: dadosProcessados.comparativoMensal.dadosAnoAtual,
+                anoAnterior: dadosProcessados.comparativoMensal.anoAnterior,
+                anoAtual: dadosProcessados.comparativoMensal.anoAtual
+            };
+            
+            renderizarGraficoBarrasFiltrado(dadosParaGrafico, '', 'mensal');
+            
+            // Atualizar gráfico de pizza
+            atualizarGraficoPizza(dadosProcessados.top10Ocorrencias);
+            
+        } else {
+            throw new Error(dados.error || 'Erro na API');
+        }
+    } catch (error) {
+        console.error('❌ Erro ao carregar dados reais:', error);
+        alert('Erro ao carregar dados do dashboard');
+    }
+}
+
+
+function atualizarCards(dadosProcessados) {
+    document.getElementById('totalOcorrencias').textContent = dadosProcessados.totalOcorrencias.toLocaleString();
+    document.getElementById('ocorrencias2024').textContent = dadosProcessados.ocorrenciasAnoAnterior.toLocaleString();
+    document.getElementById('ocorrencias2025').textContent = dadosProcessados.ocorrenciasAnoAtual.toLocaleString();
+    
+    // ✅ CORREÇÃO: Usar anos dinâmicos nos labels
+    const cards = document.querySelectorAll('.card');
+    cards[1].querySelector('h3').textContent = `Ocorrências ${dadosProcessados.anoAnterior}`;
+    cards[2].querySelector('h3').textContent = `Ocorrências ${dadosProcessados.anoAtual}`;
+    cards[3].querySelector('h3').textContent = `Variação ${dadosProcessados.anoAnterior}/${dadosProcessados.anoAtual}`;
+    
+    const variacaoElement = document.getElementById('variacao');
+    variacaoElement.textContent = (dadosProcessados.variacao > 0 ? '+' : '') + dadosProcessados.variacao + '%';
+    variacaoElement.style.color = dadosProcessados.variacao >= 0 ? '#27ae60' : '#e74c3c';
+}
+
+
+
+
+// Modificar o event listener final para:
+document.addEventListener('DOMContentLoaded', function() {
+	carregarTiposParaFiltro();
+    
+    // ✅ CORREÇÃO: Adicionar event listeners para os filtros
+    document.getElementById('filtroTipo').addEventListener('change', atualizarGraficoComFiltros);
+    document.getElementById('filtroPeriodo').addEventListener('change', atualizarGraficoComFiltros);
+    
+    // Depois tentar carregar dados reais
+    carregarDadosReais();
+    
+    popularSelects();
+    carregarTipos();
+});
+		
+		
+		
+		
+		// Função para forçar atualização completa
+async function forcarAtualizacao() {
+    try {
+        console.log('🔄 Iniciando atualização completa...');
+        // ✅ CORREÇÃO: Removida aspa extra
+        const response = await fetch(`${API_BASE}/api/atualizar`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const resultado = await response.json();
+        
+        if (resultado.success) {
+            console.log('✅ Atualização completa concluída!', resultado);
+            alert('✅ Atualização completa concluída!\n' + 
+                  `Anos atualizados: ${resultado.anosAtualizados.join(', ')}\n` +
+                  `Totais: ${JSON.stringify(resultado.totais)}`);
+            
+            // Recarregar dados no dashboard
+            setTimeout(() => carregarDadosReais(), 2000);
+        } else {
+            throw new Error(resultado.error);
+        }
+    } catch (error) {
+        console.error('❌ Erro na atualização:', error);
+        alert('❌ Erro na atualização: ' + error.message);
+    }
+}
+
+// Função para atualização incremental
+async function atualizacaoIncremental() {
+    try {
+        console.log('⚡ Iniciando atualização incremental...');
+        // ✅ CORREÇÃO: Removida aspa extra
+        const response = await fetch(`${API_BASE}/api/atualizacao-incremental.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const resultado = await response.json();
+        
+        if (resultado.success) {
+            console.log('✅ Atualização incremental concluída!', resultado);
+            alert('✅ Atualização incremental concluída!');
+            
+            // Recarregar dados no dashboard
+            setTimeout(() => carregarDadosReais(), 1000);
+        } else {
+            throw new Error(resultado.error);
+        }
+    } catch (error) {
+        console.error('❌ Erro na atualização incremental:', error);
+        alert('❌ Erro na atualização incremental: ' + error.message);
+    }
+}
+
+// Função para verificar status do cache
+async function verificarStatusCache() {
+    try {
+        const response = await fetch(`${API_BASE}/api/cache/status`);
+        const status = await response.json();
+        
+        console.log('📋 Status do cache:', status);
+        
+        if (status.success) {
+            const cacheInfo = status.cache;
+            let mensagem = `📊 STATUS DO CACHE\n`;
+            mensagem += `🕒 Última atualização: ${new Date(cacheInfo.ultimaAtualizacao).toLocaleString()}\n`;
+            mensagem += `📁 Anos com cache: ${cacheInfo.anosComCache.join(', ') || 'Nenhum'}\n`;
+            mensagem += `🔢 Total de registros: ${cacheInfo.totalRegistros}\n`;
+            mensagem += `📏 Tamanho do cache: ${(cacheInfo.tamanhoCache / 1024 / 1024).toFixed(2)} MB`;
+            
+            alert(mensagem);
+        }
+    } catch (error) {
+        console.error('❌ Erro ao verificar status:', error);
+        alert('❌ Erro ao verificar status do cache');
+    }
+}
+
+
+// Controle expansível da consulta rápida
+document.getElementById('headerConsultaRapida').addEventListener('click', function() {
+    const body = document.getElementById('bodyConsultaRapida');
+    const arrow = this.querySelector('.toggle-arrow');
+    
+    if (body.style.display === 'none') {
+        body.style.display = 'block';
+        arrow.textContent = '▲';
+    } else {
+        body.style.display = 'none';
+        arrow.textContent = '▼';
+        // Opcional: esconder resultados também quando fechar
+        document.getElementById('resultadoConsulta').style.display = 'none';
+    }
+});
+
+// Consulta Rápida - Função existente (mantida)
+document.getElementById('btnConsultaRapida').addEventListener('click', async () => {
+    const tipo = document.getElementById('consultaTipo').value;
+    const ano = document.getElementById('consultaAno').value;
+    const mes = document.getElementById('consultaMes').value;
+    
+    if (!tipo) {
+        alert('Selecione o tipo de ocorrência!');
+        return;
+    }
+
+    const btn = document.getElementById('btnConsultaRapida');
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Consultando...';
+
+    try {
+        const params = new URLSearchParams({ tipo, ano, mes });
+        const response = await fetch(`${API_BASE}/api/consulta-rapida.php?${params}`);
+        const data = await response.json();
+
+        if (data.success) {
+            exibirResultadoConsulta(data.consulta);
+        } else {
+            alert('Erro: ' + data.error);
+        }
+    } catch (error) {
+        console.error('Erro na consulta:', error);
+        alert('Erro ao realizar consulta');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '🔍 Consultar';
+    }
+});
+
+// No index.html - função exibirResultadoConsulta (VERSÃO CORRIGIDA)
+function exibirResultadoConsulta(consulta) {
+    const resultadoDiv = document.getElementById('resultadoConsulta');
+    const titulo = document.getElementById('consultaTitulo');
+    const estatisticas = document.getElementById('consultaEstatisticas');
+    const detalhes = document.getElementById('consultaDetalhes');
+
+    // Título
+    titulo.innerHTML = `Consulta: ${consulta.tipo} - ${consulta.periodo}`;
+    
+    // Estatísticas
+    let estatisticasHTML = `
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="card bg-primary text-white">
+                    <div class="card-body py-2">
+                        <h6>Total</h6>
+                        <h3 style="color: white !important;">${consulta.total}</h3>
+                    </div>
+                </div>
+            </div>
+    `;
+
+    // ✅ CORREÇÃO: Comparativo com mês anterior (se disponível)
+    if (consulta.comparativoMesAnterior) {
+        const stats = consulta.comparativoMesAnterior;
+        const variacao = stats.variacao;
+        const variacaoColor = variacao >= 0 ? 'danger' : 'success';
+        const variacaoIcon = variacao >= 0 ? '📈' : '📉';
+        
+        estatisticasHTML += `
+            <div class="col-md-4">
+                <div class="card bg-${variacaoColor} text-white">
+                    <div class="card-body py-2">
+                        <h6>Vs Mês Anterior</h6>
+                        <h5>${variacaoIcon} ${variacao >= 0 ? '+' : ''}${variacao.toFixed(1)}%</h5>
+                        <small>Mês ant.: ${stats.mesAnterior} ocorrências</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-info text-white">
+                    <div class="card-body py-2">
+                        <h6>Período Anterior</h6>
+                        <small>${stats.periodoAnterior}</small>
+                    </div>
+                </div>
+            </div>
+        `;
+    } else {
+        estatisticasHTML += `
+            <div class="col-md-8">
+                <div class="card bg-secondary text-white">
+                    <div class="card-body py-2">
+                        <h6>Comparativo</h6>
+                        <small>Não disponível para consulta anual</small>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    estatisticasHTML += `</div>`;
+    estatisticas.innerHTML = estatisticasHTML;
+
+    // Detalhes (primeiras 10 ocorrências ORDENADAS)
+    if (consulta.detalhes.length > 0) {
+        let detalhesHTML = `<h6 class="mt-3">Últimas ocorrências (mais recentes primeiro):</h6><div class="table-responsive"><table class="table table-sm table-striped"><thead><tr><th>Código</th><th>Data</th><th>Hora</th><th>Município</th></tr></thead><tbody>`;
+        
+        consulta.detalhes.forEach(occ => {
+            detalhesHTML += `
+                <tr>
+                    <td><strong>${occ.codigo}</strong></td>
+                    <td>${occ.data}</td>
+                    <td>${occ.hora}</td>
+                    <td>${occ.municipio}</td>
+                </tr>
+            `;
+        });
+        
+        detalhesHTML += `</tbody></table></div>`;
+        detalhes.innerHTML = detalhesHTML;
+    } else {
+        detalhes.innerHTML = '<div class="alert alert-info">Nenhuma ocorrência encontrada</div>';
+    }
+
+    resultadoDiv.style.display = 'block';
+    
+    // Garantir que a área esteja expandida para ver os resultados
+    const body = document.getElementById('bodyConsultaRapida');
+    const arrow = document.querySelector('.toggle-arrow');
+    if (body.style.display === 'none') {
+        body.style.display = 'block';
+        arrow.textContent = '▲';
+    }
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+[03-Nov-2025 18:16:28 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:108
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 108
+[03-Nov-2025 18:16:48 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:108
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 108
+[03-Nov-2025 18:17:35 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:108
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 108
+[03-Nov-2025 18:17:56 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:108
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 108
+[03-Nov-2025 18:53:50 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:118
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 118
+[03-Nov-2025 18:54:07 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:118
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 118
+[03-Nov-2025 18:56:34 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:129
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 129
+[03-Nov-2025 18:56:42 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:129
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 129
+[03-Nov-2025 18:56:44 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:129
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 129
+[03-Nov-2025 18:56:52 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:129
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 129
+[03-Nov-2025 18:56:52 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:129
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 129
+[03-Nov-2025 18:57:14 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:129
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 129
+[03-Nov-2025 18:57:22 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:129
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 129
+[03-Nov-2025 18:58:47 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Cannot unpack array with string keys in /home/sigesco1/dash/api/consulta-rapida.php:132
+Stack trace:
+#0 {main}
+  thrown in /home/sigesco1/dash/api/consulta-rapida.php on line 132

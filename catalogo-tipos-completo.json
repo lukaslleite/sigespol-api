@@ -1,0 +1,580 @@
+{
+  "catalogo": [
+    {
+      "id": 1,
+      "descricao": "HOMICÍDIO"
+    },
+    {
+      "id": 2,
+      "descricao": "ABANDONO DE INCAPAZ"
+    },
+    {
+      "id": 3,
+      "descricao": "CRIME DE TRÂNSITO"
+    },
+    {
+      "id": 4,
+      "descricao": "ACIDENTE AEROVIÁRIO"
+    },
+    {
+      "id": 5,
+      "descricao": "ACIDENTE COM ARMA DE FOGO"
+    },
+    {
+      "id": 6,
+      "descricao": "ACIDENTE COM EMBARCAÇÕES"
+    },
+    {
+      "id": 7,
+      "descricao": "ACIDENTE DE VEICULO SEM VÍTIMA"
+    },
+    {
+      "id": 8,
+      "descricao": "ACIDENTE COM VEÍCULO OFICIAL"
+    },
+    {
+      "id": 9,
+      "descricao": "ACIDENTE DE TRABALHO"
+    },
+    {
+      "id": 10,
+      "descricao": "ACIDENTE DE VEÍCULO COM VÍTIMA (ATROPELO/COLISÃO)"
+    },
+    {
+      "id": 11,
+      "descricao": "ACIDENTE DE VEÍCULO COM VÍTIMA PRESA EM FERRAGENS"
+    },
+    {
+      "id": 12,
+      "descricao": "ACIDENTE FERROVIÁRIO"
+    },
+    {
+      "id": 13,
+      "descricao": "AFOGAMENTO"
+    },
+    {
+      "id": 14,
+      "descricao": "AGRESSÃO/LESOES CORPORAIS"
+    },
+    {
+      "id": 15,
+      "descricao": "ALAGAMENTO"
+    },
+    {
+      "id": 16,
+      "descricao": "ALARME BANCÁRIO"
+    },
+    {
+      "id": 17,
+      "descricao": "AMEAÇA"
+    },
+    {
+      "id": 18,
+      "descricao": "APREENSÃO DE ARMA BRANCA"
+    },
+    {
+      "id": 19,
+      "descricao": "APREENSÃO DE ARMA DE FOGO"
+    },
+    {
+      "id": 20,
+      "descricao": "ATENDIMENTO A GESTANTE"
+    },
+    {
+      "id": 21,
+      "descricao": "ATENTADO A BOMBA"
+    },
+    {
+      "id": 22,
+      "descricao": "ATENTADO VIOLENTO AO PUDOR"
+    },
+    {
+      "id": 23,
+      "descricao": "ATO OBSCENO"
+    },
+    {
+      "id": 24,
+      "descricao": "ATO PÚBLICO (PASSEATAS/PROTESTO)"
+    },
+    {
+      "id": 25,
+      "descricao": "AVERIGUAÇÃO"
+    },
+    {
+      "id": 26,
+      "descricao": "BUSCA DE PESSOA"
+    },
+    {
+      "id": 27,
+      "descricao": "CAPTURA DE FUGITIVO"
+    },
+    {
+      "id": 28,
+      "descricao": "CAPTURA E RESGATE DE ANIMAIS"
+    },
+    {
+      "id": 29,
+      "descricao": "CAPTURA E/OU EXTERMÍNIO DE INSETOS"
+    },
+    {
+      "id": 30,
+      "descricao": "CONDUÇÃO DE CUSTODIADO"
+    },
+    {
+      "id": 31,
+      "descricao": "CRIME AMBIENTAL"
+    },
+    {
+      "id": 32,
+      "descricao": "DANOS MATERIAIS"
+    },
+    {
+      "id": 33,
+      "descricao": "DESABAMENTO"
+    },
+    {
+      "id": 34,
+      "descricao": "DIREÇÃO PERIGOSA"
+    },
+    {
+      "id": 35,
+      "descricao": "DISPARO DE ARMA DE FOGO"
+    },
+    {
+      "id": 36,
+      "descricao": "DISPUTA DE CORRIDA EM VIA PÚBLICA"
+    },
+    {
+      "id": 37,
+      "descricao": "DOENTE MENTAL"
+    },
+    {
+      "id": 38,
+      "descricao": "DROGAS/PORTE"
+    },
+    {
+      "id": 39,
+      "descricao": "DROGAS/TRÁFICO"
+    },
+    {
+      "id": 40,
+      "descricao": "DROGAS/USO"
+    },
+    {
+      "id": 41,
+      "descricao": "EMBRIAGUEZ"
+    },
+    {
+      "id": 42,
+      "descricao": "EMERGÊNCIA COM MATERIAL RADIOATIVO"
+    },
+    {
+      "id": 43,
+      "descricao": "EMERGÊNCIA COM PRODUTOS PERIGOSOS"
+    },
+    {
+      "id": 44,
+      "descricao": "EMERGÊNCIA EM ELEVADORES"
+    },
+    {
+      "id": 45,
+      "descricao": "ENCHENTE"
+    },
+    {
+      "id": 46,
+      "descricao": "ENCONTRO DE CADÁVER - APARENTE MORTE NATURAL"
+    },
+    {
+      "id": 47,
+      "descricao": "ESTELIONATO/FRAUDE"
+    },
+    {
+      "id": 48,
+      "descricao": "ESTUPRO"
+    },
+    {
+      "id": 49,
+      "descricao": "EXPLOSÃO"
+    },
+    {
+      "id": 50,
+      "descricao": "EXPLOSIVOS EM LOCAIS DIVERSOS"
+    },
+    {
+      "id": 51,
+      "descricao": "EXTORSÃO"
+    },
+    {
+      "id": 52,
+      "descricao": "EXTORSÃO MEDIANTE SEQUESTRO"
+    },
+    {
+      "id": 53,
+      "descricao": "FUGA DE PRESO"
+    },
+    {
+      "id": 54,
+      "descricao": "FURTO A BANCO"
+    },
+    {
+      "id": 55,
+      "descricao": "FURTO A CAIXA ELETRÔNICO"
+    },
+    {
+      "id": 56,
+      "descricao": "FURTO A CASA LOTÉRICA"
+    },
+    {
+      "id": 57,
+      "descricao": "FURTO A ESCOLA PARTICULAR"
+    },
+    {
+      "id": 58,
+      "descricao": "FURTO A ESCOLA PÚBLICA"
+    },
+    {
+      "id": 59,
+      "descricao": "FURTO A ESTABELECIMENTO COMERCIAL"
+    },
+    {
+      "id": 60,
+      "descricao": "FURTO A IGREJA"
+    },
+    {
+      "id": 61,
+      "descricao": "FURTO A INDÚSTRIA"
+    },
+    {
+      "id": 62,
+      "descricao": "FURTO A VEÍCULO"
+    },
+    {
+      "id": 63,
+      "descricao": "FURTO SIMPLES"
+    },
+    {
+      "id": 64,
+      "descricao": "FURTO/CESTA DO POVO"
+    },
+    {
+      "id": 65,
+      "descricao": "INCÊNDIO E VAZAMENTO DE GASES E LÍQUIDOS INFLAMÁVEIS"
+    },
+    {
+      "id": 66,
+      "descricao": "INCÊNDIO EM AUTOMÓVEL"
+    },
+    {
+      "id": 67,
+      "descricao": "INCÊNDIO EM BARRACA OU QUIOSQUE"
+    },
+    {
+      "id": 68,
+      "descricao": "INCÊNDIO EM CONSULTÓRIO OU CLÍNICA"
+    },
+    {
+      "id": 69,
+      "descricao": "INCÊNDIO EM EDIFÍCIOS ACIMA DE 4 PAVIMENTOS"
+    },
+    {
+      "id": 70,
+      "descricao": "INCÊNDIO EM EQUIPAMENTOS ENERGIZADOS"
+    },
+    {
+      "id": 71,
+      "descricao": "INCÊNDIO EM ESCOLAS"
+    },
+    {
+      "id": 72,
+      "descricao": "INCÊNDIO EM ESCRITÓRIO"
+    },
+    {
+      "id": 73,
+      "descricao": "INCÊNDIO EM ESTABELECIMENTO COMERCIAL OU DEPÓSITOS"
+    },
+    {
+      "id": 74,
+      "descricao": "INCÊNDIO EM GALERIA"
+    },
+    {
+      "id": 75,
+      "descricao": "INCÊNDIO EM GLP"
+    },
+    {
+      "id": 76,
+      "descricao": "INCÊNDIO EM HABITAÇÕES COLETIVAS"
+    },
+    {
+      "id": 77,
+      "descricao": "INCÊNDIO EM HOSPITAIS"
+    },
+    {
+      "id": 78,
+      "descricao": "INCÊNDIO EM INDÚSTRIA"
+    },
+    {
+      "id": 79,
+      "descricao": "INCÊNDIO EM LIXO"
+    },
+    {
+      "id": 80,
+      "descricao": "INCÊNDIO EM LOCAIS DE REUNIÃO PÚBLICA"
+    },
+    {
+      "id": 81,
+      "descricao": "INCÊNDIO EM POSTO DE GASOLINA"
+    },
+    {
+      "id": 82,
+      "descricao": "INCÊNDIO EM QUARTÉIS"
+    },
+    {
+      "id": 83,
+      "descricao": "INCÊNDIO EM REPARTIÇÕES PÚBLICAS"
+    },
+    {
+      "id": 84,
+      "descricao": "INCÊNDIO EM RESIDÊNCIA"
+    },
+    {
+      "id": 85,
+      "descricao": "INCÊNDIO EM VEGETAÇÃO"
+    },
+    {
+      "id": 86,
+      "descricao": "INCÊNDIO FLORESTAL"
+    },
+    {
+      "id": 87,
+      "descricao": "JOGO DE AZAR"
+    },
+    {
+      "id": 88,
+      "descricao": "LINCHAMENTO"
+    },
+    {
+      "id": 89,
+      "descricao": "MAUS TRATOS"
+    },
+    {
+      "id": 90,
+      "descricao": "OMISSÃO DE SOCORRO"
+    },
+    {
+      "id": 91,
+      "descricao": "APOIO A INSTITUIÇÕES (MINISTÉRIO PÚBLICO, ORGÃO GOVERNAMENTAL, ETC)"
+    },
+    {
+      "id": 92,
+      "descricao": "OUTRAS OCORRÊNCIAS NÃO RELACIONADAS"
+    },
+    {
+      "id": 93,
+      "descricao": "PERTURBAÇÃO DO SOSSEGO PÚBLICO"
+    },
+    {
+      "id": 94,
+      "descricao": "PESCA PREDATÓRIA (EXPLOSIVO)"
+    },
+    {
+      "id": 95,
+      "descricao": "PORTE  ILEGAL DE ARMA"
+    },
+    {
+      "id": 96,
+      "descricao": "PRESTAÇÃO DE SOCORRO"
+    },
+    {
+      "id": 97,
+      "descricao": "REBELIÃO DE PRESOS"
+    },
+    {
+      "id": 98,
+      "descricao": "RECEPTAÇÃO"
+    },
+    {
+      "id": 99,
+      "descricao": "ROUBO"
+    },
+    {
+      "id": 100,
+      "descricao": "ROUBO A AGÊNCIA DOS CORREIOS"
+    },
+    {
+      "id": 101,
+      "descricao": "ROUBO A BANCO"
+    },
+    {
+      "id": 102,
+      "descricao": "ROUBO A BANCO/LATROCÍNIO"
+    },
+    {
+      "id": 103,
+      "descricao": "ROUBO A CARGA"
+    },
+    {
+      "id": 104,
+      "descricao": "ROUBO A CARRO FORTE"
+    },
+    {
+      "id": 105,
+      "descricao": "ROUBO A CASA LOTÉRICA"
+    },
+    {
+      "id": 106,
+      "descricao": "ROUBO A ESTABELECIMENTO COMERCIAL"
+    },
+    {
+      "id": 107,
+      "descricao": "ROUBO A INDÚSTRIA"
+    },
+    {
+      "id": 108,
+      "descricao": "ROUBO A ÔNIBUS"
+    },
+    {
+      "id": 109,
+      "descricao": "ROUBO A TRANSPORTE ALTERNATIVO"
+    },
+    {
+      "id": 110,
+      "descricao": "ROUBO A VEÍCULO DE CARGA"
+    },
+    {
+      "id": 111,
+      "descricao": "SALVAMENTO DE PESSOA EM RISCO"
+    },
+    {
+      "id": 112,
+      "descricao": "SALVAMENTO EM ALTURA"
+    },
+    {
+      "id": 113,
+      "descricao": "SALVAMENTO EM ESPAÇO CONFINADO"
+    },
+    {
+      "id": 114,
+      "descricao": "SEQUESTRO E CÁRCERE PRIVADO"
+    },
+    {
+      "id": 115,
+      "descricao": "SOTERRAMENTO"
+    },
+    {
+      "id": 116,
+      "descricao": "TENTATIVA DE FURTO"
+    },
+    {
+      "id": 117,
+      "descricao": "TENTATIVA DE HOMICÍDIO"
+    },
+    {
+      "id": 118,
+      "descricao": "TENTATIVA DE LATROCÍNIO"
+    },
+    {
+      "id": 119,
+      "descricao": "TENTATIVA DE ROUBO"
+    },
+    {
+      "id": 120,
+      "descricao": "TENTATIVA DE ROUBO A BANCO"
+    },
+    {
+      "id": 121,
+      "descricao": "TENTATIVA DE SEQUESTRO"
+    },
+    {
+      "id": 122,
+      "descricao": "TENTATIVA DE SUÍCIDIO"
+    },
+    {
+      "id": 123,
+      "descricao": "RECUPERAÇÃO DE VEÍCULO ROUBADO/FURTADO"
+    },
+    {
+      "id": 124,
+      "descricao": "VIOLAÇÃO DE DOMICÍLIO"
+    },
+    {
+      "id": 125,
+      "descricao": "VÍTIMA DE TRAUMA"
+    },
+    {
+      "id": 126,
+      "descricao": "SUICÍDIO"
+    },
+    {
+      "id": 127,
+      "descricao": "PRISÃO DE PESSOA COM MANDADO EM ABERTO"
+    },
+    {
+      "id": 128,
+      "descricao": "APREENSÃO DE VEÍCULOS (INFR TRÂNSITO)"
+    },
+    {
+      "id": 129,
+      "descricao": "DESACATO"
+    },
+    {
+      "id": 130,
+      "descricao": "MARIA DA PENHA"
+    },
+    {
+      "id": 131,
+      "descricao": "AUTO DE RESISTÊNCIA"
+    },
+    {
+      "id": 132,
+      "descricao": "APREENSÃO DE SIMULACRO DE ARMA DE FOGO"
+    },
+    {
+      "id": 133,
+      "descricao": "ADULTERAÇÃO DE SINAL IDENTIFICADOR DE VEÍCULO"
+    },
+    {
+      "id": 134,
+      "descricao": "VIAS DE FATO"
+    },
+    {
+      "id": 135,
+      "descricao": "INCÊNDIO (CRIME) ART. 250 CP"
+    },
+    {
+      "id": 136,
+      "descricao": "LATROCÍNIO"
+    },
+    {
+      "id": 137,
+      "descricao": "IMPORTUNAÇÃO SEXUAL"
+    },
+    {
+      "id": 138,
+      "descricao": "ACIDENTE DOMÉSTICO COM MORTE"
+    },
+    {
+      "id": 139,
+      "descricao": "RECUPERAÇÃO DE VEÍCULO COM RESTRIÇÃO RENAJUD (BSUCA E APREENSÃO)"
+    },
+    {
+      "id": 140,
+      "descricao": "CRIME ELEITORAL"
+    },
+    {
+      "id": 141,
+      "descricao": "DANO AO PATRIMÔNIO PUBLICO"
+    },
+    {
+      "id": 142,
+      "descricao": "APREENSÃO DE DROGAS SEM CONDUÇÃO DE PESSOAS"
+    },
+    {
+      "id": 143,
+      "descricao": "ROUBO DE VEÍCULO"
+    }
+ 
+  ],
+  "totalTipos": 143,
+  "extraidoEm": "2025-10-29",
+  "versao": "1.0"
+}
